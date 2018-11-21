@@ -27,14 +27,29 @@ public class Awss3Application {
 		SpringApplication.run(Awss3Application.class, args);
 	}
 
-	@RequestMapping(value = "/sayhello", method = RequestMethod.GET)
+	/**
+	 * Just a simple method to test if the app endpoint is working.
+	 * 
+	 * @RequestMapping(value = "/sayhello", method = RequestMethod.GET)
+	 * @param firstName
+	 * @param lastName
+	 * @return
+	 * @throws Exception
+	 */
 	public String sayHello(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName)
 			throws Exception {
 
 		return "Hello " + firstName + " " + lastName + " " + awsS3Credentials.getS3Region();
 	}
 
-	@RequestMapping("/uploadfile")
+	/**
+	 * Method exposes an endpoint to which a user can upload a file which this
+	 * method then uploads to the S3 bucket associated with the S3 service instance
+	 * bound to this app by the AWS service broker @RequestMapping("/uploadfile")
+	 * 
+	 * @param file
+	 * @return
+	 */
 	public boolean upload(@RequestParam("file") MultipartFile file) {
 
 		boolean success = false;
@@ -47,8 +62,6 @@ public class Awss3Application {
 
 			final String fileName = file.getOriginalFilename();
 			byte[] fileBytes = file.getBytes();
-System.out.println("~~~~~~~~~~~~~~~~~~~~"+fileBytes.length+"~~~~~~~~~~~~~~~~~~");
-System.out.println("~~~~~~~~~~~~~~~~~~~~"+awsS3Credentials.getBucketName()+"~~~~~~~~~~~~~~~~~~");
 			ObjectMetadata metadata = new ObjectMetadata();
 			metadata.setContentLength(fileBytes.length);
 			s3client.putObject(awsS3Credentials.getBucketName(), fileName, file.getInputStream(), metadata);
