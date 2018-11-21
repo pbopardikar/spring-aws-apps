@@ -1,0 +1,10 @@
+---
+applications:
+- name: awss3app
+  memory: 1G
+  instances: 1
+  path: target/awss3-0.0.1-SNAPSHOT.jar
+  services:
+  - my-aws-s3
+
+
