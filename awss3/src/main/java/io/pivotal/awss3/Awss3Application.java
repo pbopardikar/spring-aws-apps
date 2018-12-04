@@ -30,12 +30,12 @@ public class Awss3Application {
 	/**
 	 * Just a simple method to test if the app endpoint is working.
 	 * 
-	 * @RequestMapping(value = "/sayhello", method = RequestMethod.GET)
 	 * @param firstName
 	 * @param lastName
 	 * @return
 	 * @throws Exception
 	 */
+	@RequestMapping(value = "/sayhello", method = RequestMethod.GET)
 	public String sayHello(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName)
 			throws Exception {
 
@@ -45,11 +45,12 @@ public class Awss3Application {
 	/**
 	 * Method exposes an endpoint to which a user can upload a file which this
 	 * method then uploads to the S3 bucket associated with the S3 service instance
-	 * bound to this app by the AWS service broker @RequestMapping("/uploadfile")
+	 * bound to this app by the AWS service broker
 	 * 
 	 * @param file
 	 * @return
 	 */
+	@RequestMapping("/uploadfile")
 	public boolean upload(@RequestParam("file") MultipartFile file) {
 
 		boolean success = false;
